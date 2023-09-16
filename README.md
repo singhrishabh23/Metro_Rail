@@ -1,1 +1,3 @@
 # Metro_Rail
+
+The provided code represents a Metro application designed for route planning within a metro system. It comprises a Metro class that manages stations and their connections, employing Dijkstra's algorithm to compute the shortest and quickest paths between two stations, considering both distance and time. The program offers functionalities such as adding and removing stations, establishing connections with specified weights, and displaying station lists and connectivity maps. The main function acts as the user interface, presenting a menu for actions like listing stations, viewing the metro map, and finding optimal routes. This Metro app is a practical tool for commuters, aiding them in navigating the metro network efficiently.
