@@ -1,16 +1,20 @@
-#include <bits/stdc++.h>
-#include <stdlib.h>
+#include <iostream>
+#include <list>
+#include <map>
+#include <iterator>
+#include <limits>
+#include <set>
+
 using namespace std;
 
-template<typename T>
 class MetroGraph
 {
-    map<T, list<pair<T, float>>> adjacencyList;
+    map<string, list<pair<string, float>>> adjacencyList;
 
 public:
-    list<T> shortestPath;
-    
-    void addEdge(T u, T v, float dist, bool bidir = true)
+    list<string> shortestPath;
+
+    void addEdge(string u, string v, float dist, bool bidir = true)
     {
         adjacencyList[u].push_back(make_pair(v, dist));
         if (bidir)
@@ -19,7 +23,7 @@ public:
         }
     }
 
-    void DijkstraGetShortestPathTo(T destination, map<T, T> &previous)
+    void DijkstraGetShortestPathTo(string destination, map<string, string> &previous)
     {
         for (; destination != ""; destination = previous[destination])
         {
@@ -27,16 +31,15 @@ public:
         }
         shortestPath.reverse();
         cout << "\t\t\t";
-        copy(shortestPath.begin(), shortestPath.end(), ostream_iterator<T>(cout, "\n\t\t\t"));
+        copy(shortestPath.begin(), shortestPath.end(), ostream_iterator<string>(cout, "\n\t\t\t"));
     }
 
     bool printAdj(string source, string destination);
-    void dijkstraShortestPath(T source, map<T, float> &distance, map<T, T> &previous);
+    void dijkstraShortestPath(string source, map<string, float> &distance, map<string, string> &previous);
     bool check(string source, string destination);
 };
 
-template<typename T>
-bool MetroGraph<T>::check(string src, string dest)
+bool MetroGraph::check(string src, string dest)
 {
     int count = 0;
     list<string>::iterator it;
@@ -50,8 +53,7 @@ bool MetroGraph<T>::check(string src, string dest)
     return count == 2;
 }
 
-template<typename T>
-bool MetroGraph<T>::printAdj(string src, string dest)
+bool MetroGraph::printAdj(string src, string dest)
 {
     int count;
     count = 0;
@@ -70,10 +72,9 @@ bool MetroGraph<T>::printAdj(string src, string dest)
     return count > 1;
 }
 
-template<typename T>
-void MetroGraph<T>::dijkstraShortestPath(T src, map<T, float> &dist, map<T, T> &prev)
+void MetroGraph::dijkstraShortestPath(string src, map<string, float> &dist, map<string, string> &prev)
 {
-    set<pair<float, T>> s;
+    set<pair<float, string>> s;
     prev.clear();
 
     for (auto j : adjacencyList)
@@ -88,13 +89,13 @@ void MetroGraph<T>::dijkstraShortestPath(T src, map<T, float> &dist, map<T, T> &
     while (!s.empty())
     {
         auto p = *(s.begin());
-        T node = p.second;
+        string node = p.second;
         float nodeDist = p.first;
         s.erase(s.begin());
 
         for (auto childPair : adjacencyList[node])
         {
-            T dest = childPair.first;
+            string dest = childPair.first;
             float weight = childPair.second;
             float distance_through_node = nodeDist + childPair.second;
 
@@ -118,7 +119,7 @@ int main()
 
     cout << "HELLO! I AM METRO BOT" << endl;
     string source, destination;
-    MetroGraph<string> Metro;
+    MetroGraph Metro;
     //red
     Metro.addEdge("Rithala","Netaji Subhash Place",5.2);
     Metro.addEdge("Netaji Subhash Place","Keshav Puram",1.2);
